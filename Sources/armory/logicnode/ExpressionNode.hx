@@ -16,7 +16,7 @@ class ExpressionNode extends LogicNode {
 		var parser = new hscript.Parser();
 		var ast = parser.parseString(expr);
 		var interp = new hscript.Interp();
-		for (i in 0...values)	interp.variables.set("v"+i,value[i]);
+		for (i in 0...values)	interp.variables.set("v"+i,values[i]);
 		result = interp.execute(ast);
 		#end
 
