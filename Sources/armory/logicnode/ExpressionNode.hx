@@ -9,21 +9,16 @@ class ExpressionNode extends LogicNode {
 		super(tree);
 	}
 
-	override function run(node:LogicNode) {
-		var values : Array<Dynamic> = [for (i in inputs.slice(2)) i.get()];
+	override function get(from:Int):Dynamic {
 		#if arm_hscript
-		var expr = inputs[1].get();
+		var values : Array<Dynamic> = [for (i in inputs.slice(1)) i.get()];
+		var expr = inputs[0].get();
 		var parser = new hscript.Parser();
 		var ast = parser.parseString(expr);
 		var interp = new hscript.Interp();
 		for (i in 0...values.length)	interp.variables.set("v"+i,values[i]);
 		result = interp.execute(ast);
 		#end
-
-		runOutputs(0);
-	}
-
-	override function get(from:Int):Dynamic {
 		return result;
 	}
 }

@@ -8,18 +8,16 @@ class ExpressionNode(Node, ArmLogicTreeNode):
     bl_idname = 'LNExpressionNode'
     bl_label = 'Expression'
     bl_icon = 'GAME'
-    min_inputs = 2
+    min_inputs = 1
     @property
     def input_label(self):
-        index = len(self.inputs)-2
+        index = len(self.inputs)-self.min_inputs
         default = 'v{0}'.format(index)
         return default
     def __init__(self):
         array_nodes[str(id(self))] = self
     def init(self, context):
-        self.inputs.new('ArmNodeSocketAction', 'In')
         self.inputs.new('NodeSocketString', 'Expr')
-        self.outputs.new('ArmNodeSocketAction', 'Out')
         self.outputs.new('NodeSocketShader', 'Result')
 
     def draw_buttons(self, context, layout):
